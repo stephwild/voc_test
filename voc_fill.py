@@ -1,4 +1,4 @@
-from vocitem import VocEntity, VocItem, pretty_print_vocitem
+from vocitem import VocEntity, VocItem, pretty_print_vocitem, pretty_print_entity
 
 
 # Define value
@@ -6,7 +6,7 @@ delim = ' - '
 desc_token = '\tDesc: '
 ex_token = '\tEx: '
 
-def fill_voc_dic(path: str) -> list:
+def fill_voc_dic(path):
     f = open(path, 'r')
 
     str_item = ""
@@ -28,7 +28,7 @@ def fill_voc_dic(path: str) -> list:
     return l
 
 
-def block_parser(str_item: str) -> VocItem:
+def block_parser(str_item):
     if str_item == "":
         return
 
@@ -44,7 +44,7 @@ def block_parser(str_item: str) -> VocItem:
     item = main_parser(tab_item[0])
 
     if len(tab_item) > 1:
-        item = desc_parser(tab_item[1])
+        item = desc_parser(tab_item[1]) # Todo: Not necesserely description
 
     if len(tab_item) > 2:
         item = ex_parser(tab_item[2])
@@ -52,7 +52,7 @@ def block_parser(str_item: str) -> VocItem:
     return item
 
 
-def main_parser(line: str) -> VocItem:
+def main_parser(line):
     l = line.split(delim, 1)  # split main word from the traduc_list
     item = None
 
@@ -63,25 +63,28 @@ def main_parser(line: str) -> VocItem:
     for str_entity in l[1].split(','):
 
         str_entity.strip(' \n\t')  # Remove excess space in traduc entity
-        item.add_translation_entity(entity_parser(str_entity)) # add traduc
+
+        lol = entity_parser(str_entity)
+        item.add_translation_entity(lol) # add traduc
 
     return item
 
 
-def desc_parser(item: VocItem, desc: str) -> VocItem:
+def desc_parser(item, desc):
     item.set_description(desc.split(desc_token, 1)[1])
     return item
 
 
-def ex_parser(item: VocItem, examples: str) -> VocItem:
+def ex_parser(item, examples):
     item.set_example(examples.split(ex_token, 1)[1])
     return item
 
 
 # In this function, you have always a main name
-def entity_parser(str_entity: str) -> VocEntity:
-    l = str_entity.split(' \t', 2)
-    entity = None
+def entity_parser(str_entity):
+    l = str_entity.split(' ', 2)
+
+    entity = VocEntity(l[0], None, None)
 
     # In this if statement, you can have optionally a genre and description
     # attribute
@@ -97,10 +100,12 @@ def entity_parser(str_entity: str) -> VocEntity:
             # Only desc attribute (surround by parenthesis)
             entity = VocEntity(l[0], None, l[1].strip('()'))
 
+    pretty_print_entity(entity)
+
     return entity
 
 
-def init_array(need_log: bool) -> list:
+def init_array(need_log):
     l = fill_voc_dic("vocabulary")
 
     if need_log:
