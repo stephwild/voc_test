@@ -27,7 +27,8 @@ class VocItem:
         self.example = example
 
 def pretty_print_entity(entity):
-    print("Entity -> n: ", entity.name, ",g: ", entity.genre, ", c: ", entity.comment)
+    print("Entity -> n:", entity.name, ", g:",
+            entity.genre, ", c:", entity.comment, sep='')
 
 def pretty_print_vocitem(item):
 
