@@ -1,4 +1,5 @@
-from vocitem import VocEntity, VocItem, pretty_print_vocitem, pretty_print_entity
+from vocitem import VocEntity, VocItem
+from vocitem import pretty_print_vocitem, pretty_print_entity
 
 
 # Define value
@@ -53,16 +54,20 @@ def block_parser(str_item):
 
 
 def main_parser(line):
-    l = line.split(delim, 1)  # split main word from the traduc_list
-    item = None
+    # Delimitor must be present !
+    # Action: Split up keyword and traduc_list from main_line
+    l = line.split(delim, 1)
 
-    item = VocItem(entity_parser(l[0])) # init VocItem with main word
+    # len(l) = 2 because because previous split must succeed !
+    # Action: Init VocItem with keyword
+    item = VocItem(entity_parser(l[0]))
 
     # for each traduction in traduc_list
     # split function do not remove excess spaces
     for str_entity in l[1].split(','):
 
-        str_entity.strip(' \n\t')  # Remove excess space in traduc entity
+        # Remove excess space in traduc entity
+        str_entity = str_entity.strip(' \n\t')
 
         lol = entity_parser(str_entity)
         item.add_translation_entity(lol) # add traduc
@@ -80,25 +85,41 @@ def ex_parser(item, examples):
     return item
 
 
-# In this function, you have always a main name
+# In this function, you have always a keyword
+# This function parse only the entity:
+#   -> the entity must be passed to the function correctly
+#   -> No error handling !
 def entity_parser(str_entity):
-    l = str_entity.split(' ', 2)
 
-    entity = VocEntity(l[0], None, None)
+    genre_attr = False
+    desc_attr = False
 
-    # In this if statement, you can have optionally a genre and description
-    # attribute
+    l = str_entity.split(' [', 1) # Try to parse genre attribute
+
     if len(l) > 1:
-        if l[1] == '[': # this block contain a genre attribute
+        genre_attr = True # Genre attribute present
 
-            if len(l) > 2:
-                entity = VocEntity(l[0], l[1], l[2].strip('()'))
-            else:
-                entity = VocEntity(l[0], l[1], None) # Only genre (with braces)
+    base = l[len(l) - 1] # last elt of l
 
+    l2 = base.split(' (', 1) # Try to parse desc attribute
+
+    if len(l2) > 1:
+        desc_attr = True # Desc attribute present
+
+    # genre success:
+    #   -> l have 'name' and 'genre&!desc' -- l2 have 'genre' (and 'desc')
+    #
+    # genre fail: l have 'name&!desc' -- l2 have 'name' (and 'desc')
+    if (genre_attr):
+        if (desc_attr):
+            entity = VocEntity(l[0], '[' + l2[0], l2[1].rstrip(')'))
         else:
-            # Only desc attribute (surround by parenthesis)
-            entity = VocEntity(l[0], None, l[1].strip('()'))
+            entity = VocEntity(l[0], '[' + l2[0], None)
+    else:
+        if (desc_attr):
+            entity = VocEntity(l2[0], None, l2[1].rstrip(')'))
+        else:
+            entity = VocEntity(l[0], None, None)
 
     pretty_print_entity(entity)
 
