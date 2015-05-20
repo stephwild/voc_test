@@ -14,12 +14,15 @@ def fill_voc_dic(path):
     item = None
     l = []
 
+    # Divide the f file content into block with each
+    # correspond to only one VocItem
     for line in f:
 
         if line[0] == ' ' or line[0] == '\t':
             str_item += line
         else:
-            item = block_parser(str_item)
+            if str_item != "":
+                item = block_parser(str_item)
 
             if item is not None:
                 l.append(item)
@@ -29,30 +32,46 @@ def fill_voc_dic(path):
     return l
 
 
+# This function convert the block to a VocItem.
+# But, there must only have one block.
+# No error checking for that type of error will be found here
+# Check, fill_voc_dic for these errors checking
 def block_parser(str_item):
-    if str_item == "":
-        return
 
     tab_item = str_item.split(desc_token, 1)
+    desc_attr = False
 
     if len(tab_item) > 1:
-        tmp = tab_item.pop()  # Contain 'Desc' and 'Ex' part
+        tmp = tab_item.pop()  # Contain at least 'Desc' (and maybe 'Ex' part)
+        desc_attr = True # There is a description part in this block
 
-        for i in tmp.split(ex_token, 1):  # list[0]: Desc, list[1]: Ex
+        for i in tmp.split(ex_token, 1):  # tmp[0]: Desc, (tmp[1]: Ex)
             tab_item.append(i)
+    else:
+        tab_item = str_item.split(ex_token, 1)
 
-    # Now tab_item[0] = main_words, tab_item[1]: Desc, tab_item[2]: Ex
+    # main part must be present in a block !
     item = main_parser(tab_item[0])
 
     if len(tab_item) > 1:
-        item = desc_parser(tab_item[1]) # Todo: Not necesserely description
+        if desc_attr:
+            item = desc_parser(item, tab_item[1])
+        else:
+            # As main part must be present and description part is not
+            # the remaining is example part
+            item = ex_parser(item, tab_item[1])
 
+    # Desc part is only before ex part so the only configuration possible is
+    # 0: main_part, 1: desc_part, 2: ex_part
     if len(tab_item) > 2:
-        item = ex_parser(tab_item[2])
+        item = ex_parser(item, tab_item[2])
 
     return item
 
 
+# This parser parse only main part
+# desc and ex part have already been parse before
+# No error checking for these parts
 def main_parser(line):
     # Delimitor must be present !
     # Action: Split up 'keyword' and 'traduc_list' from main_line
@@ -66,22 +85,6 @@ def main_parser(line):
     # split function do not remove excess spaces
     for str_entity in l[1].split(','):
 
-        # To ignore desc and ex part:
-        #   - check if there token descriptor is present
-        #   - strip this part when it's present.
-        idx = str_entity.find(desc_token)
-
-        # strip desc part (find by its token)
-        if idx != -1:
-            str_entity = str_entity[:idx]
-        else:
-            idx = str_entity.find(ex_token)
-
-            # strip example part
-            if idx != -1:
-                str_entity = str_entity[:idx]
-
-        # Remove excess space in traduc entity
         str_entity = str_entity.strip(' \n\t')
 
         lol = entity_parser(str_entity)
@@ -90,13 +93,15 @@ def main_parser(line):
     return item
 
 
+# Token already parse
 def desc_parser(item, desc):
-    item.set_description(desc.split(desc_token, 1)[1])
+    item.set_description(desc)
     return item
 
 
+# Token already parse
 def ex_parser(item, examples):
-    item.set_example(examples.split(ex_token, 1)[1])
+    item.set_example(examples)
     return item
 
 
