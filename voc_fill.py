@@ -55,7 +55,7 @@ def block_parser(str_item):
 
 def main_parser(line):
     # Delimitor must be present !
-    # Action: Split up keyword and traduc_list from main_line
+    # Action: Split up 'keyword' and 'traduc_list' from main_line
     l = line.split(delim, 1)
 
     # len(l) = 2 because because previous split must succeed !
@@ -65,6 +65,21 @@ def main_parser(line):
     # for each traduction in traduc_list
     # split function do not remove excess spaces
     for str_entity in l[1].split(','):
+
+        # To ignore desc and ex part:
+        #   - check if there token descriptor is present
+        #   - strip this part when it's present.
+        idx = str_entity.find(desc_token)
+
+        # strip desc part (find by its token)
+        if idx != -1:
+            str_entity = str_entity[:idx]
+        else:
+            idx = str_entity.find(ex_token)
+
+            # strip example part
+            if idx != -1:
+                str_entity = str_entity[:idx]
 
         # Remove excess space in traduc entity
         str_entity = str_entity.strip(' \n\t')
@@ -89,6 +104,8 @@ def ex_parser(item, examples):
 # This function parse only the entity:
 #   -> the entity must be passed to the function correctly
 #   -> No error handling !
+#
+# Form: keyword (\[genre\] [\(comment\)])
 def entity_parser(str_entity):
 
     genre_attr = False
