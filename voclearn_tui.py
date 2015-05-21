@@ -82,6 +82,11 @@ l = init_array(False)
 # Run the tests
 print('Vocabulary test will begin !')
 print('Today, there will has', str(nbr_test), 'tests')
-random_draw(l, traduc_handler, nbr_test)
+
+try:
+    random_draw(l, traduc_handler, nbr_test)
+except KeyboardInterrupt as e:
+    print("\n\nExiting: Application interrupted by Keyboard")
+    sys.exit(0)
 
 print("\nYour score is", str(nbr_succeed) + "/" + str(nbr_test))
