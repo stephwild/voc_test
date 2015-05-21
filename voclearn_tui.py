@@ -18,7 +18,10 @@ def print_Entity(entity):
             print(entity.name, '(' + entity.comment + ')')
 
     else:
-        print(entity.name, entity.genre, '(' + entity.comment + ')')
+        if entity.comment is None:
+            print(entity.name, entity.genre)
+        else:
+            print(entity.name, entity.genre, '(' + entity.comment + ')')
 
 
 def print_VocItem(item):
