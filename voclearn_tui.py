@@ -68,9 +68,8 @@ def traduc_handler(i, l):
         print("\nWell Played Dude, you succeed this one")
     else:
         print("\nFailed !")
-        print("More luck next time ! Check the response beneath:")
+        print("More luck next time ! Check the response beneath:\n")
         print_VocItem(l[i])
-        print("")
 
 
 nbr_succeed = 0
