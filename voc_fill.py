@@ -1,5 +1,5 @@
 from vocitem import VocEntity, VocItem
-from vocitem import pretty_print_vocitem, pretty_print_entity
+from pretty_print import pretty_print_entity, pretty_print_list_vocitem
 
 
 # Define value
@@ -79,7 +79,7 @@ def main_parser(line):
 
     # len(l) = 2 because because previous split must succeed !
     # Action: Init VocItem with keyword
-    item = VocItem(entity_parser(l[0]))
+    item = VocItem(entity_parser(l[0], False))
 
     # for each traduction in traduc_list
     # split function do not remove excess spaces
@@ -87,8 +87,8 @@ def main_parser(line):
 
         str_entity = str_entity.strip(' \n\t')
 
-        lol = entity_parser(str_entity)
-        item.add_translation_entity(lol) # add traduc
+        # Add definition to item definition list
+        item.add_translation_entity(entity_parser(str_entity, False))
 
     return item
 
@@ -111,7 +111,7 @@ def ex_parser(item, examples):
 #   -> No error handling !
 #
 # Form: keyword (\[genre\] [\(comment\)])
-def entity_parser(str_entity):
+def entity_parser(str_entity, debug):
 
     genre_attr = False
     desc_attr = False
@@ -143,7 +143,8 @@ def entity_parser(str_entity):
         else:
             entity = VocEntity(l[0], None, None)
 
-    pretty_print_entity(entity)
+    if debug:
+        pretty_print_entity("Entity", entity)
 
     return entity
 
@@ -152,6 +153,6 @@ def init_array(need_log):
     l = fill_voc_dic("vocabulary")
 
     if need_log:
-        pretty_print_vocitem(l)
+        pretty_print_list_vocitem(l)
 
     return l
