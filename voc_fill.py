@@ -29,6 +29,8 @@ def fill_voc_dic(path):
 
             str_item = line
 
+    l.append(block_parser(str_item)) # Add last element not handle in loop
+
     return l
 
 

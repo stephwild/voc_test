@@ -37,6 +37,7 @@ def pretty_print_vocitem(item):
 def pretty_print_list_vocitem(l):
     if l is None:
         print("List is NULL")
+        return
 
     for i in l:
         pretty_print_vocitem(i)
