@@ -146,7 +146,7 @@ def entity_parser(str_entity, debug):
             entity = VocEntity(l[0], None, None)
 
     if debug:
-        pretty_print_entity("Entity", entity)
+        pretty_print_entity(entity)
 
     return entity
 
