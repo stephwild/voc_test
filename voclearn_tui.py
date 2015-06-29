@@ -44,17 +44,18 @@ def print_VocItem(item):
 
 
 # index of the VocItem, list of VocItem
-def traduc_handler(i, l):
+def traduc_handler(rdm_item):
     retry = 0
     succeed_test = False
+    global l
 
     while (retry < max_retry):
-        print("\nKeyword:", l[i].keyword.name)
+        print("\nKeyword:", rdm_item.keyword.name)
         print("Traduction: ", end="")
         sys.stdout.flush()
         response = sys.stdin.readline().strip(' \t\n')
 
-        for definion_entity in l[i].def_list:
+        for definion_entity in rdm_item.def_list:
 
             if definion_entity.name == response:
                 succeed_test = True
@@ -72,7 +73,7 @@ def traduc_handler(i, l):
     else:
         print("\nFailed !")
         print("More luck next time ! Check the response beneath:\n")
-        print_VocItem(l[i])
+        print_VocItem(rdm_item)
 
 
 nbr_succeed = 0
@@ -87,7 +88,11 @@ print('Vocabulary test will begin !')
 print('Today, there will has', str(nbr_test), 'tests')
 
 try:
-    random_draw(l, traduc_handler, nbr_test)
+    random_list = random_draw(l, nbr_test)
+
+    for i in range(len(random_list)):
+        traduc_handler(random_list[i])
+
 except KeyboardInterrupt as e:
     print("\n\nExiting: Application interrupted by Keyboard")
     sys.exit(0)

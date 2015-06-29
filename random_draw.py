@@ -3,7 +3,7 @@ import os
 import sys
 import random
 
-def random_draw(l, func_ptr, treshold):
+def random_draw(l, treshold):
 
     if len(l) < treshold:
         os.write(sys.stderr, 'Fatal error in random_draw: threshold too large')
@@ -14,7 +14,6 @@ def random_draw(l, func_ptr, treshold):
     for i in range(treshold):
         drawn = random.choice(tmp)
         tmp.remove(drawn)             # No duplicate item like set
-        draw_list.append(drawn)
+        draw_list.append(l[drawn])
 
-    for i in range(len(draw_list)):
-        func_ptr(draw_list[i], l)
+    return draw_list
