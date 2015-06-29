@@ -1,0 +1,40 @@
+#: kivy 1.9.0
+
+<QuizzScreen>:
+    font_size: 16
+    score: score_label
+
+    Label:
+        id: score_label
+        size_hint: .15, .15
+        pos_hint: {'center_x': .8, 'center_y': .9}
+        text: "score: 0/" + str(root.max_retries)
+        font_size: root.font_size
+
+    Label:
+        id: keyword_label
+        size_hint: .15, .15
+        pos_hint: {'x': .25, 'center_y': .7}
+        text: "Keyword: " + root.keyword
+        font_size: root.font_size
+
+    Label:
+        size_hint: .15, .15
+        pos_hint: {'x': .25, 'center_y': .6}
+        text: "Definition: "
+        font_size: root.font_size
+
+    TextInput:
+        size_hint: .35, .08
+        pos_hint: {'center_x': .6, 'center_y': .6}
+        multiline: False
+        halign: 'center'
+        valign: 'middle'
+        padding: 10, self.height / 2 - root.font_size / 2, 0, 0
+        font_size: root.font_size
+
+    Button:
+        text: 'Submit'
+        size_hint: .50, .08
+        pos_hint: {'center_x': .5, 'center_y': .4}
+        font_size: root.font_size
