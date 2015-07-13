@@ -9,7 +9,7 @@
         id: score_label
         size_hint: .15, .15
         pos_hint: {'center_x': .8, 'center_y': .9}
-        text: "score: 0/" + str(root.max_retries)
+        text: "score: " +  str(root.nbr_succeed) + "/" + str(root.nbr_test)
         font_size: root.font_size
 
     Label:

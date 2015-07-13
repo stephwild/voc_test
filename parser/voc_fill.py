@@ -1,5 +1,5 @@
-from vocitem import VocEntity, VocItem
-from pretty_print import pretty_print_entity, pretty_print_list_vocitem
+from elt.vocitem import VocEntity, VocItem
+from elt.pretty_print import pretty_print_entity, pretty_print_list_vocitem
 
 
 # Define value

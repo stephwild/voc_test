@@ -1,7 +1,7 @@
 import sys
 
-from random_draw import random_draw
-from voc_fill import init_array
+from rdm.random_draw import random_draw
+from parser.voc_fill import init_array
 
 
 def list_handler(i, l):
