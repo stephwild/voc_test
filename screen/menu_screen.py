@@ -15,6 +15,7 @@ class MenuScreen(Screen):
         sc_globals.sm.current = 'quizz'
 
     def run_voclist(self):
+        sc_globals.sm.get_screen('voclist').make_layout()
         sc_globals.sm.current = 'voclist'
 
     def run_settings(self):
