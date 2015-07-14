@@ -4,28 +4,26 @@ from kivy.properties import StringProperty, NumericProperty, ObjectProperty
 
 from . import sc_globals
 
-from parser.voc_fill import init_array
 from rdm.random_draw import random_draw
+import gui_view as GLOBAL_
+
 
 Builder.load_file('kv/quizz.kv')
 
-class QuizzScreen(Screen):
-    nbr_succeed = 0
-    nbr_test = 4
 
-    max_retries = NumericProperty(3)
-    keyword = StringProperty('Hello World')
+class QuizzScreen(Screen):
+    keyword = StringProperty()
+    nbr_succeed = NumericProperty(0)
+    nbr_test = GLOBAL_.nbr_test
     rsp_input = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(QuizzScreen, self).__init__(**kwargs)
 
-        # Fill the VocItem array with the specified file
-        tab = init_array(False)
-        self.random_tab = random_draw(tab, self.nbr_test)
+    def init_quizz_globaly(self):
         self.i = 0
-
-        self.init_quizz_entry()
+        self.nbr_succeed = 0
+        self.random_tab = random_draw(GLOBAL_.voc_array, GLOBAL_.nbr_test)
 
     def init_quizz_entry(self):
         self.retry = 0
@@ -34,21 +32,20 @@ class QuizzScreen(Screen):
 
     def on_submit(self, instance):
         next_test = False
+        self.retry += 1
 
         if self.current_vocitem.is_good_translation(self.rsp_input.text):
             # Say that you win
             next_test = True
-            self.nbr_succeed = self.nbr_succeed + 1
-        else:
-            if self.retry < self.max_retries:
-                self.retry = self.retry + 1
-            else:
-                # Say that you fail
-                # Here you have to lauch a new screen with the solution
-                next_test = True
+            self.nbr_succeed += 1
+
+        elif self.retry >= GLOBAL_.max_retries:
+            # You Failed...
+            # TODO: Here, Lauch a new screen with the solution
+            next_test = True
 
         if next_test:
-            self.i = self.i + 1
+            self.i += 1
             self.rsp_input.text = ""
 
             if self.i < len(self.random_tab):
