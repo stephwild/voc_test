@@ -1,28 +1,24 @@
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
-from kivy.uix.label import Label
 from kivy.adapters.listadapter import ListAdapter
-from kivy.uix.listview import SelectableView, ListItemButton
+from screen.voc_list_object import VocListObj
 
 import gui_view as GLOBAL_
 
 Builder.load_file('kv/voclist.kv')
 
-class SelectableLabel(SelectableView, Label):
-    def __init__(self, **kwargs):
-        super(Label, self).__init__(**kwargs)
-        super(SelectableView, self).__init__(**kwargs)
-
 class VocListScreen(Screen):
 
     def make_layout(self):
-        args_converter = lambda row_index, voc_item: {'text': voc_item.get_keyword()
-                + " " + voc_item.def_list[0].to_String()}
+        args_voc_convert = lambda row_index, voc_item: \
+            {'voc_item': voc_item,
+            'size_hint_y': None}
 
         list_adapter = ListAdapter(data=GLOBAL_.voc_array,
-                                    args_converter=args_converter,
-                                    cls=SelectableLabel,
-                                    selection_mode='single',
+                                    args_converter=args_voc_convert,
+                                    cls=VocListObj,
+                                    selection_mode='multiple',
                                     allow_empty_selection=True)
 
+        # self.ids permits to get id from kv files
         self.ids.label_list.adapter = list_adapter
