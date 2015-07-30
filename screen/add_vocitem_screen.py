@@ -7,6 +7,7 @@ from kivy.uix.button import Button
 import elt.vocitem as Item
 import gui_view as GLOBAL_
 import screen.sc_globals as SC_globals
+import update.voc_update as Update
 
 class CustomDropDown(DropDown):
     pass
@@ -99,3 +100,4 @@ class Add_VocItemScreen(Screen):
 
         GLOBAL_.voc_array.append(vocitem)
         SC_globals.sm.get_screen('voclist').add_item(vocitem)
+        Update.update_voc_file('vocabulary', vocitem)
