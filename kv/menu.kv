@@ -6,27 +6,28 @@
     Button:
         text: 'Quizz'
         size_hint: .35, .15
-        pos_hint: {'center_x': .5, 'center_y': .70}
-        halign: 'center'
-        valign: 'middle'
+        pos_hint: {'center_x': .5, 'center_y': .78125}
         font_size: root.font_size
         on_release: root.run_quizz()
 
     Button:
         text: 'Voc'
         size_hint: .35, .15
-        pos_hint: {'center_x': .5, 'center_y': .5}
-        halign: 'center'
-        valign: 'middle'
+        pos_hint: {'center_x': .5, 'center_y': .59375}
         font_size: root.font_size
         on_release: root.run_voclist()
 
     Button:
+        text: 'Add VocItem'
+        size_hint: .35, .15
+        pos_hint: {'center_x': .5, 'center_y': .40625}
+        font_size: root.font_size
+        on_release: root.run_add_vocitem()
+
+    Button:
         text: 'Settings'
         size_hint: .35, .15
-        pos_hint: {'center_x': .5, 'center_y': .30}
-        halign: 'center'
-        valign: 'middle'
+        pos_hint: {'center_x': .5, 'center_y': .21875}
         font_size: root.font_size
         on_release: root.run_settings()
 

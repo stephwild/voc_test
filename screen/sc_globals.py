@@ -6,6 +6,7 @@ def init_sm():
     from .menu_screen import MenuScreen
     from .quizz_screen import QuizzScreen
     from .voclist_screen import VocListScreen
+    from .add_vocitem_screen import Add_VocItemScreen
     from .settings_screen import SettingsScreen
 
     global sm
@@ -14,6 +15,7 @@ def init_sm():
     sm.add_widget(MenuScreen(name='menu'))
     sm.add_widget(QuizzScreen(name='quizz'))
     sm.add_widget(VocListScreen(name='voclist'))
+    sm.add_widget(Add_VocItemScreen(name='add_vocitem'))
     sm.add_widget(SettingsScreen(name='settings'))
 
 def on_back_btn(window, key, *args):

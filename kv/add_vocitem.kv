@@ -1,0 +1,103 @@
+#: kivy 1.9.0
+
+<Add_VocItemScreen>:
+    font_size: 16
+    __safe_id_: [dropdwn_key.__self__, dropdwn_def.__self__]
+
+    ###########
+    # Keyword #
+    ###########
+
+    Label:
+        text: '[i]Keyword:[/i]'
+        markup: True
+        size_hint: 0.1, 0.05
+        pos_hint: {'x': 0.02, 'top': 0.9}
+        font_size: root.font_size
+
+    Button:
+        id: btn_key
+        text: '-'
+        size_hint:  0.05, 0.05
+        pos_hint: {'x': 0.14, 'top': 0.9}
+        on_release: dropdwn_key.open(self)
+
+    CustomDropDown:
+        id: dropdwn_key
+        on_select: btn_key.text = '{}'.format(args[1])
+        on_parent: self.dismiss()
+        height: btn_key.height
+
+    TextInput:
+        id: key_txtinput_main
+        size_hint: 0.77, 0.05
+        pos_hint: {'x': 0.21, 'top': 0.9}
+        font_size: root.font_size
+        multiline: False
+        padding: 10, self.height / 2 - root.font_size / 2, 0, 0
+
+    TextInput:
+        id: key_txtinput_comment
+        size_hint: 0.84, 0.15
+        pos_hint: {'x': 0.14, 'top': 0.83}
+        font_size: root.font_size
+        multiline: True
+        padding: 10, 10
+
+    ##############
+    # Definition #
+    ##############
+
+    Label:
+        text: '[i]Definition:[/i]'
+        markup: True
+        size_hint: 0.1, 0.05
+        pos_hint: {'x': 0.02, 'top': 0.59}
+        font_size: root.font_size
+
+    Button:
+        id: btn_def
+        text: '-'
+        size_hint:  0.05, 0.05
+        pos_hint: {'x': 0.14, 'top': 0.59}
+        on_release: dropdwn_def.open(self)
+
+    CustomDropDown:
+        id: dropdwn_def
+        on_select: btn_def.text = '{}'.format(args[1])
+        on_parent: self.dismiss()
+        height: btn_def.height
+
+    TextInput:
+        id: def_txtinput_main
+        size_hint: 0.77, 0.05
+        pos_hint: {'x': 0.21, 'top': 0.59}
+        font_size: root.font_size
+        multiline: False
+        padding: 10, self.height / 2 - root.font_size / 2, 0, 0
+
+    TextInput:
+        id: def_txtinput_comment
+        size_hint: 0.84, 0.15
+        pos_hint: {'x': 0.14, 'top': 0.52}
+        font_size: root.font_size
+        multiline: True
+        padding: 10, 10
+
+    Button:
+        text: 'Add definition'
+        size_hint: 0.3, 0.05
+        pos_hint: {'x': 0.14, 'top': 0.35}
+        font_size: root.font_size
+        on_release: root.on_add_definition(self)
+
+    #################
+    # Submit button #
+    #################
+
+    Button:
+        text: 'Submit'
+        size_hint: 0.3, 0.05
+        pos_hint: {'center_x': .5, 'y': .1}
+        font_size: root.font_size
+        on_release: root.on_submit(self)

@@ -1,0 +1,39 @@
+#: kivy 1.9.0
+
+<CustomDropDown>:
+    font_size: 16
+
+    Button:
+        text: '-'
+        size_hint_y: None
+        height: root.height
+        font_size: root.font_size
+        on_release: root.select('-')
+
+    Button:
+        text: 'nm'
+        size_hint_y: None
+        height: root.height
+        font_size: root.font_size
+        on_release: root.select('nm')
+
+    Button:
+        text: 'nf'
+        size_hint_y: None
+        height: root.height
+        font_size: root.font_size
+        on_release: root.select('nf')
+
+    Button:
+        text: 'adj'
+        size_hint_y: None
+        height: root.height
+        font_size: root.font_size
+        on_release: root.select('adj')
+
+    Button:
+        text: 'verb'
+        size_hint_y: None
+        height: root.height
+        font_size: root.font_size
+        on_release: root.select('v')

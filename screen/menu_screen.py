@@ -18,5 +18,8 @@ class MenuScreen(Screen):
         sc_globals.sm.get_screen('voclist').make_layout()
         sc_globals.sm.current = 'voclist'
 
+    def run_add_vocitem(self):
+        sc_globals.sm.current = 'add_vocitem'
+
     def run_settings(self):
         sc_globals.sm.current = 'settings'
