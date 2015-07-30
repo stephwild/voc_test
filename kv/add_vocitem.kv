@@ -4,6 +4,16 @@
     font_size: 16
     __safe_id_: [dropdwn_key.__self__, dropdwn_def.__self__]
 
+    key_main: key_txtinput_main
+    key_genre: btn_key
+    key_comment: key_txtinput_comment
+
+    def_main: def_txtinput_main
+    def_genre: btn_def
+    def_comment: def_txtinput_comment
+
+    stack_layout: stack_layout_id
+
     ###########
     # Keyword #
     ###########
@@ -47,6 +57,11 @@
     ##############
     # Definition #
     ##############
+
+    StackLayout:
+        id: stack_layout_id
+        size_hint: 1., 0.025
+        pos_hint: {'x': 0.02, 'top': 0.66}
 
     Label:
         text: '[i]Definition:[/i]'
