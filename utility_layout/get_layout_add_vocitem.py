@@ -1,19 +1,21 @@
 # Constant
-window_vpad = 10
 window_hpad = 2
+window_vpad = 5
 
 x_spacing = 2
 y_spacing = 2
 
 default_size_y = 5
 default_label_size_x = 10
-default_comment_size_y = 15
+default_comment_size_y = 10
+default_desc_ex_size = 10
 
 size_button = (30, default_size_y)
 
-def str_elt(name, x, top, size):
-    return name + ':\n\t{\'x\': ' + str(x / 100) + ', \'top\': ' + str(top / 100) \
-        + '}\n\tsize: ' + str(size[0] / 100) + ', ' + str(size[1] / 100)
+def str_elt(name, x, top, size, x_str='x', y_str='top'):
+    return name + ':\n\t{\'' + x_str + '\': ' + str(x / 100) + ', \'' + y_str \
+        + '\': ' + str(top / 100) + '}\n\tsize: ' + str(size[0] / 100) \
+        + ', ' + str(size[1] / 100)
 
 class Elt:
     def __init__(self, name, pos_x=None, pos_y=None, size_x=None,
@@ -93,6 +95,39 @@ print()
 
 add_button_pos = (def_list.comment.pos[0], def_list.comment.after_y())
 
+desc_label_pos = (window_hpad, add_button_pos[1] - size_button[1] - y_spacing -
+        5)
+desc_label_sz = (default_label_size_x, default_size_y)
+
+desc_txtipt_pos = (desc_label_pos[0] + desc_label_sz[0] + x_spacing,
+    desc_label_pos[1])
+desc_txtipt_sz = (100 - desc_txtipt_pos[0] - x_spacing, default_desc_ex_size)
+
+ex_label_pos = (window_hpad, desc_txtipt_pos[1] - desc_txtipt_sz[1]
+    - y_spacing)
+ex_label_sz = (default_label_size_x, default_size_y)
+
+ex_txtipt_pos = (ex_label_pos[0] + ex_label_sz[0] + x_spacing, ex_label_pos[1])
+ex_txtipt_sz = (100 - desc_txtipt_pos[0] - x_spacing, default_desc_ex_size)
+
 print(str_elt('Add Button', add_button_pos[0], add_button_pos[1], size_button))
 print()
-print(str_elt('Submit Button', 5, 10, size_button))
+
+print(str_elt('Desc Label', desc_label_pos[0], desc_label_pos[1],
+    desc_label_sz))
+print()
+
+print(str_elt('Desc Text Input', desc_txtipt_pos[0], desc_txtipt_pos[1],
+    desc_txtipt_sz))
+print()
+
+print(str_elt('Ex Label', ex_label_pos[0], ex_label_pos[1], ex_label_sz))
+print()
+
+print(str_elt('Ex Text Input', ex_txtipt_pos[0], ex_txtipt_pos[1],
+    ex_txtipt_sz))
+print()
+
+# Submit in bottom-center of screen
+print(str_elt('Submit Button', 50, window_vpad, size_button, x_str='center_x',
+    y_str='y'))
