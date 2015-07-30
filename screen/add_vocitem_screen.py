@@ -25,6 +25,8 @@ class Add_VocItemScreen(Screen):
 
     stack_layout = ObjectProperty(None)
 
+    _debug = False
+
     def __init__(self, **kwargs):
         self.definition_added = []
         super().__init__(**kwargs)
@@ -76,10 +78,10 @@ class Add_VocItemScreen(Screen):
 
         button.on_release = lambda: self.btn_release(button, entity)
 
-        print('button texture_size:', button.texture_size)
-        print('button text_size:', button.text_size)
-#        self.stack_layout.add_widget(Button(
-#            1.), width=60))
+        if self._debug:
+            print('button texture_size:', button.texture_size)
+            print('button text_size:', button.text_size)
+
         self.stack_layout.add_widget(button)
 
     def on_submit(self, instance):
