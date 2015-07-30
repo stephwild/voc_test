@@ -19,6 +19,6 @@ def update_voc_file(voc_file, item):
             f.write('\n\tDesc: ' + item.description)
 
         if item.description is not None:
-            f.write('\n\Ex: ' + item.example)
+            f.write('\n\tEx: ' + item.example)
 
         f.write('\n')
