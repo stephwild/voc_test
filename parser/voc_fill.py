@@ -136,12 +136,13 @@ def entity_parser(str_entity, debug):
     # genre fail: l have 'name&!desc' -- l2 have 'name' (and 'desc')
     if (genre_attr):
         if (desc_attr):
-            entity = VocEntity(l[0], '[' + l2[0], l2[1].rstrip(')'))
+            entity = VocEntity(l[0], l2[0].rsplit(']', 1)[0],
+                    l2[1].rsplit(')', 1)[0])
         else:
-            entity = VocEntity(l[0], '[' + l2[0], None)
+            entity = VocEntity(l[0], l2[0].rsplit(']', 1)[0], None)
     else:
         if (desc_attr):
-            entity = VocEntity(l2[0], None, l2[1].rstrip(')'))
+            entity = VocEntity(l2[0], None, l2[1].rsplit(')', 1)[0])
         else:
             entity = VocEntity(l[0], None, None)
 
