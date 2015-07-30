@@ -24,6 +24,9 @@ class Add_VocItemScreen(Screen):
     def_genre = ObjectProperty(None)
     def_comment = ObjectProperty(None)
 
+    desc_input = ObjectProperty(None)
+    ex_input = ObjectProperty(None)
+
     stack_layout = ObjectProperty(None)
 
     _debug = False
@@ -97,6 +100,12 @@ class Add_VocItemScreen(Screen):
 
         for def_entity in self.definition_added:
             vocitem.add_translation_entity(def_entity)
+
+        if self._strip_str(self.desc_input.text) != '':
+            vocitem.description = self.desc_input.text
+
+        if self._strip_str(self.ex_input.text) != '':
+            vocitem.example = self.ex_input.text
 
         GLOBAL_.voc_array.append(vocitem)
         SC_globals.sm.get_screen('voclist').add_item(vocitem)

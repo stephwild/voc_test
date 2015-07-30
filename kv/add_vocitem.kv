@@ -12,6 +12,9 @@
     def_genre: btn_def
     def_comment: def_txtinput_comment
 
+    desc_input: desc_txt_input
+    ex_input: ex_txt_input
+
     stack_layout: stack_layout_id
 
     ###########
@@ -22,14 +25,22 @@
         text: '[i]Keyword:[/i]'
         markup: True
         size_hint: 0.1, 0.05
-        pos_hint: {'x': 0.02, 'top': 0.9}
+        pos_hint: {'x': 0.02, 'top': 0.95}
         font_size: root.font_size
+
+    TextInput:
+        id: key_txtinput_main
+        size_hint: 0.77, 0.05
+        pos_hint: {'x': 0.21, 'top': 0.95}
+        font_size: root.font_size
+        multiline: False
+        padding: 10, self.height / 2 - root.font_size / 2, 0, 0
 
     Button:
         id: btn_key
         text: '-'
         size_hint:  0.05, 0.05
-        pos_hint: {'x': 0.14, 'top': 0.9}
+        pos_hint: {'x': 0.14, 'top': 0.95}
         on_release: dropdwn_key.open(self)
 
     CustomDropDown:
@@ -39,17 +50,9 @@
         height: btn_key.height
 
     TextInput:
-        id: key_txtinput_main
-        size_hint: 0.77, 0.05
-        pos_hint: {'x': 0.21, 'top': 0.9}
-        font_size: root.font_size
-        multiline: False
-        padding: 10, self.height / 2 - root.font_size / 2, 0, 0
-
-    TextInput:
         id: key_txtinput_comment
-        size_hint: 0.84, 0.15
-        pos_hint: {'x': 0.14, 'top': 0.83}
+        size_hint: 0.84, 0.1
+        pos_hint: {'x': 0.14, 'top': 0.88}
         font_size: root.font_size
         multiline: True
         padding: 10, 10
@@ -61,20 +64,29 @@
     StackLayout:
         id: stack_layout_id
         size_hint: 1., 0.025
-        pos_hint: {'x': 0.02, 'top': 0.66}
+        pos_hint: {'x': 0.02, 'top': 0.76}
 
     Label:
         text: '[i]Definition:[/i]'
         markup: True
         size_hint: 0.1, 0.05
-        pos_hint: {'x': 0.02, 'top': 0.59}
+        pos_hint: {'x': 0.02, 'top': 0.69}
         font_size: root.font_size
+
+
+    TextInput:
+        id: def_txtinput_main
+        size_hint: 0.77, 0.05
+        pos_hint: {'x': 0.21, 'top': 0.69}
+        font_size: root.font_size
+        multiline: False
+        padding: 10, self.height / 2 - root.font_size / 2, 0, 0
 
     Button:
         id: btn_def
         text: '-'
         size_hint:  0.05, 0.05
-        pos_hint: {'x': 0.14, 'top': 0.59}
+        pos_hint: {'x': 0.14, 'top': 0.69}
         on_release: dropdwn_def.open(self)
 
     CustomDropDown:
@@ -84,17 +96,9 @@
         height: btn_def.height
 
     TextInput:
-        id: def_txtinput_main
-        size_hint: 0.77, 0.05
-        pos_hint: {'x': 0.21, 'top': 0.59}
-        font_size: root.font_size
-        multiline: False
-        padding: 10, self.height / 2 - root.font_size / 2, 0, 0
-
-    TextInput:
         id: def_txtinput_comment
-        size_hint: 0.84, 0.15
-        pos_hint: {'x': 0.14, 'top': 0.52}
+        size_hint: 0.84, 0.1
+        pos_hint: {'x': 0.14, 'top': 0.62}
         font_size: root.font_size
         multiline: True
         padding: 10, 10
@@ -102,9 +106,47 @@
     Button:
         text: 'Add definition'
         size_hint: 0.3, 0.05
-        pos_hint: {'x': 0.14, 'top': 0.35}
+        pos_hint: {'x': 0.14, 'top': 0.5}
         font_size: root.font_size
         on_release: root.on_add_definition(self)
+
+    ###############
+    # Description #
+    ###############
+
+    Label:
+        text: '[i]Description:[/i]'
+        markup: True
+        size_hint: 0.1, 0.05
+        pos_hint: {'x': 0.02, 'top': 0.38}
+        font_size: root.font_size
+
+    TextInput:
+        id: desc_txt_input
+        size_hint: 0.84, 0.1
+        pos_hint: {'x': 0.14, 'top': 0.38}
+        font_size: root.font_size
+        multiline: True
+        padding: 10, 10
+
+    ###########
+    # Example #
+    ###########
+
+    Label:
+        text: '[i]Example:[/i]'
+        markup: True
+        size_hint: 0.1, 0.05
+        pos_hint: {'x': 0.02, 'top': 0.26}
+        font_size: root.font_size
+
+    TextInput:
+        id: ex_txt_input
+        size_hint: 0.84, 0.1
+        pos_hint: {'x': 0.14, 'top': 0.26}
+        font_size: root.font_size
+        multiline: True
+        padding: 10, 10
 
     #################
     # Submit button #
@@ -113,6 +155,6 @@
     Button:
         text: 'Submit'
         size_hint: 0.3, 0.05
-        pos_hint: {'center_x': .5, 'y': .1}
+        pos_hint: {'center_x': 0.5, 'y': 0.05}
         font_size: root.font_size
         on_release: root.on_submit(self)
