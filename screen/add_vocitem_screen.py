@@ -6,6 +6,7 @@ from kivy.uix.button import Button
 
 import elt.vocitem as Item
 import gui_view as GLOBAL_
+import screen.sc_globals as SC_globals
 
 class CustomDropDown(DropDown):
     pass
@@ -40,7 +41,7 @@ class Add_VocItemScreen(Screen):
             print('[DEBUG] Error main entity part not added')
             return None
 
-        if genre == '':
+        if genre == '-':
             genre = None
 
         if comment == '':
@@ -88,5 +89,11 @@ class Add_VocItemScreen(Screen):
         if key_tuple is None:
             return
 
-        vocitem = Item.VocItem(key_tuple[0], key_tuple[1], key_tuple[2])
+        entity = Item.VocEntity(key_tuple[0], key_tuple[1], key_tuple[2])
+        vocitem = Item.VocItem(entity)
+
+        for def_entity in self.definition_added:
+            vocitem.add_translation_entity(def_entity)
+
         GLOBAL_.voc_array.append(vocitem)
+        SC_globals.sm.get_screen('voclist').add_item(vocitem)

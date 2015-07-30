@@ -9,7 +9,9 @@ Builder.load_file('kv/voclist.kv')
 
 class VocListScreen(Screen):
 
-    def make_layout(self):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
         args_voc_convert = lambda row_index, voc_item: \
             {'voc_item': voc_item,
             'size_hint_y': None}
@@ -22,3 +24,6 @@ class VocListScreen(Screen):
 
         # self.ids permits to get id from kv files
         self.ids.label_list.adapter = list_adapter
+
+    def add_item(self, item):
+        self.ids.label_list.adapter.data.append(item)
